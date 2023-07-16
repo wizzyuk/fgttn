@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+        <h1>Carrito de compras</h1>
+        <section id="catalogo">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Descripcion</th>
+                        <th>Imagen</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in carro %}
+                        <tr>
+                            <td>{{ item.0 }}</td>
+                            <td>{{ item.1 }}</td>
+                            <td>
+                                <img src="{{ item.2 }}" alt="">
+                            </td>
+                            <td>${{ item.3 }}</td>
+                            <td>{{ item.4 }}</td>
+                            <td>${{ item.5 }}</td>
+                            <td>
+                                <a href="{% url 'dropitem' item.0 %}">
+                                    <img src="{% static 'images/equis.png' %}" alt="" id="goma">
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>            
+        </section>
+        {% if not carro %}
+            <h2 style="width: 100%;text-align: center">
+                <br/>Tu carrito está vacío.<br/>
+            </h2>
+        {%else%}
+        <div class="comprar">
+            <a href="{% url 'comprar' %}">Comprar</a>
+        </div>
+        {% endif %}
+    {% endblock %}
